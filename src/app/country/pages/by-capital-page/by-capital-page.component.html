@@ -1,24 +1,5 @@
-<section class="flex flex-row gap-2 mt-2">
-  <input type="text" class="input input-bordered mr-2 w-56" placeholder="Search by capital..." autofocus #txtSearch
-    (keyup.enter)="onSearch(txtSearch.value)">
-  <button class="btn btn-primary" (click)="onSearch(txtSearch.value)">Search</button>
-</section>
+<!-- Search input -->
+<country-search-input placeholder="Search by capital..."/>
 
-<section class="mt-5">
-  <table class="table table-zebra w-full">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Icon</th>
-        <th>Flag</th>
-        <th>Name</th>
-        <th>Capital</th>
-        <th>Population</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr></tr>
-    </tbody>
-  </table>
-</section>
+<!-- country list -->
+ <country-list/>

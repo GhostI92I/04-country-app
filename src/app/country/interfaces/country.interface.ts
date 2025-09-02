@@ -1,4 +1,4 @@
-export interface Country {
+export interface ICountry {
   cca2: string;
   flag: string;
   flagSvg: string;

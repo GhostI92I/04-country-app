@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import type { RESTCountry } from '../interfaces/rest-countries.interface';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { CountryMapper } from '../mapper/country.mapper';
 import type { ICountry } from '../interfaces/country.interface';
 
@@ -19,6 +19,10 @@ export class CountryService {
     query = query.toLowerCase();
 
     return this.http.get<RESTCountry[]>(`${API_URL}/capital/${query}`)
-      .pipe(map((resp) => CountryMapper.mapRESTCountryArrayToCountryArray(resp)));
+      .pipe(map((resp) => CountryMapper.mapRESTCountryArrayToCountryArray(resp)),
+        catchError(error => {
+          console.log('Error fetching ', error);
+          return throwError(() => new Error(`Country not found with this capital: "${query}"`))
+        }));
   }
 }

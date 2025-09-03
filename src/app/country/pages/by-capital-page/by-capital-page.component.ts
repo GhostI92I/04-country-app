@@ -15,23 +15,31 @@ export class ByCapitalPageComponent {
   CountryService = inject(CountryService)
 
   isLoading = signal(false);
-  isError = signal<string|null>(null);
+  isError = signal<string | null>(null);
   countries = signal<ICountry[]>([]);
 
 
   onSearch(query: string) {
-    if(this.isLoading())return;
+    if (this.isLoading()) return;
 
     this.isLoading.set(true);
     this.isError.set(null);
 
     console.log({ query });
     this.CountryService.searchByCapital(query)
-      .subscribe((countries) => {
-        this.isLoading.set(false);
-        this.countries.set(countries);
+      .subscribe({
+        next: (countries) => {
+          this.isLoading.set(false);
+          this.countries.set(countries);
 
-        console.log(countries);
+          console.log(countries);
+        },
+        error: (err) =>{
+          console.log(err);
+          this.isLoading.set(false);
+          this.countries.set([]),
+          this.isError.set(err);
+        }
       });
   }
 }

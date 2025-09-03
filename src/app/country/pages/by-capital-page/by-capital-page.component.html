@@ -1,8 +1,14 @@
 <!-- Search input -->
-<country-search-input
-placeholder="Search by capital..."
-(value)="onSearch($event)"/>
+<country-search-input placeholder="Search by capital..." (value)="onSearch($event)" />
 
 
 <!-- country list -->
- <country-list [countries]="countries()"/>
+@if (isError()) {
+<div class="alert alert-error mt-5">
+  <div>
+    <span>{{isError()}}</span>
+  </div>
+</div>
+} @else{
+<country-list [countries]="countries()" />
+}

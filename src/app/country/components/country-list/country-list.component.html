@@ -31,7 +31,40 @@
         </td>
       </tr>
       }
-      <tr></tr>
+      @if (errorMessage()) {
+      <tr>
+        <td colspan="8" class="text-center">
+          <div class="alert alert-error text-center">
+            <div>
+              <span>{{errorMessage()}}</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+      }
+
+      @if (countries().length === 0 && !isLoading() && !errorMessage()) {
+      <td colspan="8" class="text-center">
+        <div class="p-4">
+          <div>
+            <span>Countries not found</span>
+          </div>
+        </div>
+      </td>
+      }
+
+      @if (isLoading()) {
+      <td colspan="8" class="text-center">
+        <div>
+          <div class="p-4 alert alert-info text-center mb-4">
+            <span>Searching for Countries...</span>
+          </div>
+          <div class="radial-progress animate-spin text-primary" style="--value:70; --size:3rem; --thickness:8px">
+          </div>
+        </div>
+      </td>
+      }
+
     </tbody>
   </table>
 </section>

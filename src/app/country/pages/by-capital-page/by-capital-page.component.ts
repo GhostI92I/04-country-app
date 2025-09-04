@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
+import { rxResource } from "@angular/core/rxjs-interop";
 import { SearchInputComponent } from "../../components/search-input/search-input.component";
 import { CountryListComponent } from "../../components/country-list/country-list.component";
 import { CountryService } from '../../services/country.service';
-import type { ICountry } from '../../interfaces/country.interface';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -16,17 +16,30 @@ export class ByCapitalPageComponent {
   CountryService = inject(CountryService)
   query = signal('');
 
-  countryResource = resource({
+  /* Resource with Observable RxJS */
+  countryResource = rxResource({
     request: () => ({ query: this.query() }),
-    loader: async ({ request }) => {
-      if (!request.query) return [];
+    loader: ({ request }) => {
+      if (!request.query) return of([]);
 
-      return await firstValueFrom( /* Take the first value of the Observable */
-        this.CountryService.searchByCapital(request.query)
-      )
+      return this.CountryService.searchByCapital(request.query)
     }
   })
 
+  /* Resource with Promises */
+
+  /*   countryResource = resource({
+      request: () => ({ query: this.query() }),
+      loader: async ({ request }) => {
+        if (!request.query) return [];
+
+         // Take the first value of the Observable
+        return await firstValueFrom(
+          this.CountryService.searchByCapital(request.query)
+        )
+      }
+    })
+   */
 
   /*  isLoading = signal(false);
    isError = signal<string | null>(null);

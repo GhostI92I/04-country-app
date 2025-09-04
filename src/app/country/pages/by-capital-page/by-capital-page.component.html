@@ -3,7 +3,7 @@
 
 
 <!-- country list -->
-@if (countryResource.error()) {
+<!-- @if (countryResource.error()) {
 <div class="alert alert-error mt-5">
   <div>
     <span>{{countryResource.error()}}</span>
@@ -11,4 +11,9 @@
 </div>
 } @if(countryResource.hasValue()){
 <country-list [countries]="countryResource.value()!" />
-}
+} -->
+
+<country-list [countries]="countryResource.value() ?? []"
+[errorMessage]="countryResource.error()"
+[isEmpty]="countryResource.value()?.length === 0"
+[isLoading]="countryResource.isLoading()" />

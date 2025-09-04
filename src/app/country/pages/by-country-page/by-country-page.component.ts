@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
 import { SearchInputComponent } from "../../components/search-input/search-input.component";
 import { CountryListComponent } from "../../components/country-list/country-list.component";
+import { firstValueFrom } from 'rxjs';
+import { CountryService } from '../../services/country.service';
 
 @Component({
   selector: 'app-by-country-page',
@@ -8,4 +10,19 @@ import { CountryListComponent } from "../../components/country-list/country-list
   templateUrl: './by-country-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ByCountryPageComponent { }
+export class ByCountryPageComponent {
+
+  CountryService = inject(CountryService)
+  query = signal('');
+
+  countryResource = resource({
+    request: () => ({ query: this.query() }),
+    loader: async ({ request }) => {
+      if (!request.query) return [];
+
+      return await firstValueFrom( /* Take the first value of the Observable */
+        this.CountryService.searchByCountry(request.query)
+      )
+    }
+  })
+}

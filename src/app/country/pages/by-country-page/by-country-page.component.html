@@ -1,3 +1,12 @@
-<country-search-input placeholder="Search by country..."/>
+<country-search-input placeholder="Search by country..." (value)="query.set($event)" />
 
-<country-list [countries]="[]"/>
+
+@if (countryResource.error()) {
+<div class="alert alert-error mt-5">
+  <div>
+    <span>{{countryResource.error()}}</span>
+  </div>
+</div>
+} @if(countryResource.hasValue()){
+<country-list [countries]="countryResource.value()!" />
+}

@@ -25,4 +25,17 @@ export class CountryService {
           return throwError(() => new Error(`Country not found with this capital: "${query}"`))
         }));
   }
+
+
+  /* Search by country */
+  searchByCountry(query: string): Observable<ICountry[]> {
+    query = query.toLowerCase();
+
+    return this.http.get<RESTCountry[]>(`${API_URL}/name/${query}`)
+      .pipe(map((resp) => CountryMapper.mapRESTCountryArrayToCountryArray(resp)),
+        catchError(error => {
+          console.log('Error fetching ', error);
+          return throwError(() => new Error(`Country not found with: "${query}"`))
+        }));
+  }
 }

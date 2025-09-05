@@ -39,4 +39,16 @@ export class CountryService {
           return throwError(() => new Error(`Country not found with: "${query}"`))
         }));
   }
+
+  /* Search by Alpha Code */
+  searchCountryByAlphaCode(code: string) {
+
+    return this.http.get<RESTCountry[]>(`${API_URL}/alpha/${code}`)
+      .pipe(map((resp) => CountryMapper.mapRESTCountryArrayToCountryArray(resp)),
+        map((countries) => countries.at(0)),
+        catchError(error => {
+          console.log('Error fetching ', error);
+          return throwError(() => new Error(`Country not found with this code: "${code}"`))
+        }));
+  }
 }

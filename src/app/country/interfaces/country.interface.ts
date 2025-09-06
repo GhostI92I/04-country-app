@@ -2,7 +2,11 @@ export interface ICountry {
   cca2: string;
   flag: string;
   flagSvg: string;
-  common: string;
+  name: string;
+  official?: string
   capital: string;
-  population: number
+  population: number;
+  area: string;
+  region: string;
+  latlng?: [number, number]
 }

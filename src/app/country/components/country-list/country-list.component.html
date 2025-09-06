@@ -17,9 +17,9 @@
         <td>{{index+1}}</td>
         <td>{{country.flag}}</td>
         <td>
-          <img [src]="country.flagSvg" [alt]="country.common" class="w-10 h-10 rounded-md shadow-md object-cover">
+          <img [src]="country.flagSvg" [alt]="country.name" class="w-10 h-10 rounded-md shadow-md object-cover">
         </td>
-        <td>{{country.common}}</td>
+        <td>{{country.name}}</td>
         <td>{{country.capital}}</td>
         <td>
           <span class="badge badge-lg badge-secondary">
@@ -56,10 +56,10 @@
       @if (isLoading()) {
       <td colspan="8" class="text-center">
         <div>
-          <div class="p-4 alert alert-info text-center mb-4">
+          <div class="p-4 alert alert-info text-center mb-10">
             <span>Searching for Countries...</span>
           </div>
-          <div class="radial-progress animate-spin text-primary" style="--value:70; --size:3rem; --thickness:8px">
+          <div class="radial-progress animate-spin text-primary mb-10" style="--value:70; --size:3rem; --thickness:8px">
           </div>
         </div>
       </td>

@@ -9,4 +9,7 @@ export interface ICountry {
   area: string;
   region: string;
   latlng?: [number, number]
+  currencys?: string[];
+  symbol?: string;
+  currencyName?: string;
 }

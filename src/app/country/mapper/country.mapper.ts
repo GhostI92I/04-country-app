@@ -14,10 +14,13 @@ export class CountryMapper {
       area: restCountry.area.toString(),
       region: restCountry.region,
       latlng: restCountry.latlng as [number, number] || undefined,
+      currencys: restCountry.currencies ? Object.keys(restCountry.currencies) : undefined,
+      symbol: restCountry.currencies ? Object.values(restCountry.currencies)[0].symbol : undefined,
+      currencyName: restCountry.currencies ? Object.values(restCountry.currencies)[0].name : undefined,
     };
   }
 
-  static mapRESTCountryArrayToCountryArray(restCountries: RESTCountry[]): ICountry[]{
+  static mapRESTCountryArrayToCountryArray(restCountries: RESTCountry[]): ICountry[] {
     return restCountries.map(this.mapRESTCountryToCountry);
   }
 }

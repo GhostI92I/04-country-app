@@ -1,26 +1,38 @@
 <section class="mt-10 mx-10 mb-10 grid grid-cols-2">
   <div>
-    <h1 class="text-3xl">{{country().name}}</h1>
+    <h1 class="text-3xl font-extrabold">{{country().name}}</h1>
     <img src="{{country().flagSvg}}" alt="{{country().name}}" class="w-50 mt-4 rounded-2xl shadow-lg">
-    <h2 class="text-2xl mt-4">Official Name: {{ country().official}}</h2>
-    <h3 class="text-xl mt-4">Capital: {{country().capital}}</h3>
+    <h2 class="text-2xl mt-4">Official Name: <span class="text-xl font-light">{{ country().official}}</span></h2>
+    <h3 class="text-2xl mt-4">Capital: <span class="text-xl font-extralight">{{country().capital}}</span></h3>
     <h3 class="text-2xl mt-4">Region: {{country().region}}</h3>
+    <h3 class="text-2xl mt-4">Currencies:
+      <span class="text-xl font-extralight" *ngIf="country().currencys?.length; else noCurrency">
+        {{ country().currencys?.join(', ')}}
+      </span>
+      <ng-template #noCurrency>
+        <span class="text-xl font-extralight">No Currency</span>
+      </ng-template>
+      <span class="text-xl font-extralight"> - {{country().symbol}}</span>
+      <span class="text-xl font-extralight"> ({{country().currencyName}})</span>
+    </h3>
   </div>
 
-  <div class="stats stats-vertical shadow">
-    <div class="stat">
-      <div class="stat-title">Population</div>
-      <div class="stat-value">{{ country().population | number}}</div>
-    </div>
+  <div class="shadow-2xl rounded-2xl p-10">
+    <div class="w-full rounded-3xl stats stats-vertical shadow-2xl">
+      <div class="stat">
+        <div class="stat-title">Population</div>
+        <div class="stat-value">{{ country().population | number}}</div>
+      </div>
 
-    <div class="stat">
-      <div class="stat-title">Area</div>
-      <div class="stat-value">{{ country().area | number}} km²</div>
-    </div>
+      <div class="stat">
+        <div class="stat-title">Area</div>
+        <div class="stat-value">{{ country().area | number}} km²</div>
+      </div>
 
-    <div class="stat">
-      <div class="stat-title">Latitude, Longitude</div>
-      <div class="stat-value">({{country().latlng}})</div>
+      <div class="stat">
+        <div class="stat-title">Latitude, Longitude</div>
+        <div class="stat-value">({{country().latlng}})</div>
+      </div>
     </div>
   </div>
 </section>
